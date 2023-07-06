@@ -185,6 +185,7 @@ const MessageSettings = ({ messages, setMessage, setAlert }: IProps) => {
                 placeholder='Введите ссылку на иконку'
                 name='icons'
                 id='icons'
+                error={errors.icons?.message}
                 register={register}
               />
               <Input
@@ -197,6 +198,7 @@ const MessageSettings = ({ messages, setMessage, setAlert }: IProps) => {
                 placeholder='Введите ссылку на изображение'
                 name='image'
                 id='image'
+                error={errors.image?.message}
                 register={register}
               />
             </div>
@@ -340,6 +342,10 @@ const MessageSettings = ({ messages, setMessage, setAlert }: IProps) => {
               placholder='Выберите аудиторию'
               onRemove={
                 (item) => {
+                  if (_includes(audience, item)) {
+                    return
+                  }
+                  
                   const newAudience = [...audience]
                   newAudience.splice(newAudience.indexOf(item), 1)
                   setAudience(newAudience)
@@ -367,7 +373,6 @@ const MessageSettings = ({ messages, setMessage, setAlert }: IProps) => {
                 </p>
               </button>
             </div>
-
             <label className='flex text-white mt-2'>
               <p>Сегментация</p>
               <img src={InfoIcon} alt="info" className='ml-[8px]' />
